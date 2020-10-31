@@ -1,6 +1,6 @@
 import telegram as tg
 
-from telegram_api_python.classes.message import Message
+from ..classes.message import Message
 
 
 class Command(Message):

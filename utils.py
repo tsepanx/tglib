@@ -22,11 +22,12 @@ def is_admin(user_status):
 
 
 def get_commands_pretty_printed(description_arr):
-    res = filter(lambda x: x is not None,
+    res = ['*Available commands*']
+    res += filter(lambda x: x is not None,
                  [f'/{command} - {description_arr[command]}' if command else None
                   for command in description_arr])
     ans = '\n'.join(res)
-    return {'text': ans}
+    return {'text': ans, 'parse_mode': tg.ParseMode.MARKDOWN}
 
 
 def get_divided_long_message(text, max_size):

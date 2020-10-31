@@ -84,7 +84,7 @@ class Bot:
         self.__start_bot(api_key)
 
     def __start_bot(self, bot_token):
-        logging.info('Connected bot: @%s' % tg.Bot(bot_token).get_me()['username'])
+        logging.info('Successfully connected bot: @%s' % tg.Bot(bot_token).get_me()['username'])
 
         updater = Updater(base_url=TG_API_URL,
                           token=bot_token,
