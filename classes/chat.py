@@ -123,7 +123,7 @@ class ChatHandler:
         self.send_message(other, *args, **kwargs)
 
     def send_alert(self, *args, **kwargs):
-        return self.bot.answer_callback_query(*args, chat_id=self.__chat.id, show_alert=True, **kwargs)
+        return self.bot.answer_callback_query(*args, show_alert=True, **kwargs)
 
     @send_typing_action
     def edit_message(self, *args, message=None, **kwargs):
