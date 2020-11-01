@@ -84,7 +84,13 @@ class ChatHandler:
 
         for enum_elem in self.CommandsEnum:
             if enum_elem.name == command.name:
-                enum_elem.value[1](self, update)
+                func = enum_elem.value[1]
+
+                if func:
+                    func(self, update)
+                else:
+                    # If func is None, call self.on_<command>()
+                    self.__getattribute__(f'on_{enum_elem.name}')(update)
 
     def get_member(self, user_id) -> tg.ChatMember:
         return self.__chat.get_member(user_id=user_id)
