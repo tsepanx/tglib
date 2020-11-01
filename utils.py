@@ -5,6 +5,17 @@ ON_ERROR = lambda x: f"Error: {x}"
 TG_MESSAGE_SIZE_LIMIT = 2 ** 10 + 1
 
 
+def condition_command_run(condition_state=None):
+    def decorator(func):
+        def wrapper(chat, *args, **kwargs):
+            if condition_state == chat.state or condition_state is None:
+                func(chat, *args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
 def send_action(action):
     def decorator(func):
         @wraps(func)
@@ -31,11 +42,18 @@ def get_commands_pretty_printed(description_arr):
 
 
 def get_divided_long_message(text, max_size):
+    """
+    Cuts long message text with \n separator
+
+    @param text: str - given text
+    @param max_size: int - single text message max size
+
+    return: text part from start, and the rest of text
+    """
     subtext = text[:max_size]
     border = subtext.rfind('\n')
 
     subtext = subtext[:border]
-
     text = text[border:]
 
     return subtext, text
