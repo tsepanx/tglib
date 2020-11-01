@@ -63,7 +63,7 @@ def get_reply_markup(button_texts, callback_data):
     res = [tg.InlineKeyboardButton(i, callback_data=callback_data) for i in button_texts]
     return tg.InlineKeyboardMarkup.from_row(res)
 
-def get_column_markup(buttons):
+def get_column_markup(*buttons):
     """Get column of reply markup buttons
 
     Args:
@@ -72,9 +72,9 @@ def get_column_markup(buttons):
     Returns:
         InlineKeyboardMarkup: Description
     """
-    x = lambda t: InlineKeyboardButton(t[0], callback_data=t[1])
+    x = lambda t: tg.InlineKeyboardButton(t[0], callback_data=t[1])
 
-    return InlineKeyboardMarkup.from_column(list(map(x, buttons)))
+    return tg.InlineKeyboardMarkup.from_column(list(map(x, buttons)))
 
 
 def get_reply_keyboard(buttons_list, selective=False, one_time=False):

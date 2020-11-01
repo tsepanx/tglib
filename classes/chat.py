@@ -132,11 +132,14 @@ class ChatHandler:
         return self.bot.answer_callback_query(*args, show_alert=True, **kwargs)
 
     @send_typing_action
-    def edit_message(self, *args, message=None, **kwargs):
+    def edit_message(self, *args, text=None, message=None, **kwargs):
+        if not text:
+            text = message.text
         return self.__chat.bot.edit_message_text(*args,
-                                                 chat_id=self.__chat.id,
-                                                 message_id=message.message_id,
-                                                 **kwargs)
+                                                text=text,
+                                                chat_id=self.__chat.id,
+                                                message_id=message.message_id,
+                                                **kwargs)
 
     @send_typing_action
     def delete_message(self, message, **kwargs):
