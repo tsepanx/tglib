@@ -5,10 +5,10 @@ ON_ERROR = lambda x: f"Error: {x}"
 TG_MESSAGE_SIZE_LIMIT = 2 ** 10 + 1
 
 
-def condition_command_run(condition_state=None):
+def is_state(state):
     def decorator(func):
         def wrapper(chat, *args, **kwargs):
-            if condition_state == chat.state or condition_state is None:
+            if state == chat.state:
                 func(chat, *args, **kwargs)
 
         return wrapper
