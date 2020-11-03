@@ -63,12 +63,12 @@ class ChatHandler:
 
         if msg_type == MESSAGE_TYPES.COMMAND:
             command = Command(self, update)
-            logging.info('%s : %s : %s : %s' %
+            logging.debug('%s : %s : %s : %s' %
                          (command.user.name, command.chat_user.status, command.name, command.entity_text))
 
             if command.name in self.ONLY_ADMINS_COMMANDS:
                 if not is_admin(command.chat_user.status):
-                    raise Exception(self.USER_NOT_ADMIN)
+                    raise BotMessageException(self.USER_NOT_ADMIN)
 
             if command.name == BaseBotCommands.help.name:
                 self.on_help()
@@ -76,8 +76,6 @@ class ChatHandler:
                 self.on_start()
             else:
                 self.__reply_command(update)
-
-        logging.debug(Message(self, update))
 
     def __reply_command(self, update: tg.Update):
         command = Command(self, update)

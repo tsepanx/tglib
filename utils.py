@@ -1,7 +1,7 @@
 import telegram as tg
 from functools import wraps
 
-ON_ERROR = lambda x: f"Error: {x}"
+ON_ERROR = lambda x: f"🚫 Error: {x} 🚫"
 TG_MESSAGE_SIZE_LIMIT = 2 ** 10 + 1
 
 
@@ -63,8 +63,8 @@ def get_reply_markup(button_texts, callback_data):
     res = [tg.InlineKeyboardButton(i, callback_data=callback_data) for i in button_texts]
     return tg.InlineKeyboardMarkup.from_row(res)
 
-def get_column_markup(*buttons):
-    """Get column of reply markup buttons
+def get_button_markup(*buttons):
+    """Get list of reply markup buttons
 
     Args:
         buttons ([title, data]): each button represented by tuple
@@ -74,7 +74,7 @@ def get_column_markup(*buttons):
     """
     x = lambda t: tg.InlineKeyboardButton(t[0], callback_data=t[1])
 
-    return tg.InlineKeyboardMarkup.from_column(list(map(x, buttons)))
+    return tg.InlineKeyboardMarkup.from_row(list(map(x, buttons)))
 
 
 def get_reply_keyboard(buttons_list, selective=False, one_time=False):
