@@ -23,18 +23,18 @@ catch_exception = lambda *_: None
 chat_class = ChatHandler
 
 
-def get_or_create_telegram_api_key(filename):
+def get_or_create_file(filename, message):
     dir_full_path = os.path.dirname(__file__) + '/'
     filename = dir_full_path + filename
 
     if os.path.exists(filename):
-        api_key = open(filename, 'r').readline().strip()
+        data = open(filename, 'r').readline().strip()
     else:
-        print("You don't have any telegram api key configured")
-        api_key = input('Enter your key: ')
-        open(filename, 'w').write(api_key)
+        print(message)
+        data = input('Enter: ')
+        open(filename, 'w').write(data)
 
-    return api_key
+    return data
 
 
 def log_errors(income_message_handler):
@@ -80,7 +80,7 @@ class Bot:
     def main(self):
         logging.info("Logging is configured.")
 
-        api_key = get_or_create_telegram_api_key(API_KEY_FILENAME)
+        api_key = get_or_create_file(API_KEY_FILENAME, "You don't have any telegram api key configured")
         self.__start_bot(api_key)
 
     def __start_bot(self, bot_token):
