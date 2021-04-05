@@ -1,5 +1,4 @@
-import enum
-import logging
+import enum, time, logging
 
 import telegram as tg
 
@@ -23,6 +22,7 @@ send_typing_action = send_action(tg.ChatAction.TYPING)
 send_upload_video_action = send_action(tg.ChatAction.UPLOAD_VIDEO)
 send_upload_photo_action = send_action(tg.ChatAction.UPLOAD_PHOTO)
 
+MIN_TIME_BETWEEN_MESSAGES = 2
 
 class ChatHandler:
     ONLY_ADMINS_COMMANDS = []
@@ -40,6 +40,8 @@ class ChatHandler:
 
         self.existing_commands_list = list(map(lambda x: x.name, list(BaseBotCommands.__iter__()))) + \
                                       list(map(lambda x: x.name, list(self.CommandsEnum.__iter__())))
+
+        self.last_sent_message_time = 0
 
     def on_help(self):
         res_dict = dict()
@@ -119,6 +121,17 @@ class ChatHandler:
 
     @send_typing_action
     def send_message(self, text, *args, **kwargs):
+        # Check if enough time passed
+        cur_time = time.time()
+        time_passed = cur_time - self.last_sent_message_time
+        time_to_sleep = round(MIN_TIME_BETWEEN_MESSAGES - time_passed, 1)
+
+        if time_to_sleep > 0:
+            logging.info(f'Wait {time_to_sleep}')
+            time.sleep(time_to_sleep)
+
+        self.last_sent_message_time = time.time()
+
         if len(text) <= TG_MESSAGE_SIZE_LIMIT:
             return self.__chat.send_message(text, *args, **kwargs)
 
