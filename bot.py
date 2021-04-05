@@ -9,7 +9,8 @@ from .classes.chat import ChatHandler, BotMessageException, ON_ERROR
 
 from .types import MESSAGE_TYPES
 
-TG_API_URL = "https://telegg.ru/orig/bot"
+# TG_API_URL = "https://telegg.ru/orig/bot" # Domain expired
+TG_API_URL = "https://api.telegram.org/bot"
 API_KEY_FILENAME = 'API_KEY'
 
 
