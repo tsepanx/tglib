@@ -1,3 +1,4 @@
-Telegram Bot Helper
+Telegram Bot base module
 
-It's an project, describes writing Telegram bots with using my tglib repo as submodule
+tglib - Nothing more than a simple wrapper over `python-telegram-bot` library.
+Personally, I use it for writing telegram bots, adding it to project as a git submodule.
