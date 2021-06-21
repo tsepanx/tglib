@@ -23,6 +23,7 @@ class Command(Message):
 
         command_entity = self.text[command_bounds[1]:]
 
+        #TODO Rewrite such messages matching
         if "@" in self.text:
             command_bounds[1] = self.text.find("@")
 
