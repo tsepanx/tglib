@@ -52,7 +52,7 @@ def log_errors(income_message_handler):
                 chat.send_message(**e.mess_kwargs)
                 return
 
-            # chat.send_message(ON_ERROR(e))
+            chat.send_message(ON_ERROR(e))
 
     return decorator
 
