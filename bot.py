@@ -17,7 +17,7 @@ API_KEY_FILENAME = 'API_KEY'
 known_chats = {}
 logging.basicConfig(
     level=logging.INFO,
-    format="'%(asctime)s %(message)s'",
+    # format="'%(asctime)s %(message)s'",
 )
 
 catch_exception = lambda *_: None
